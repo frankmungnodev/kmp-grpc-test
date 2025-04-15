@@ -35,6 +35,8 @@ class LoginViewModel(
                     password = _state.value.password,
                 )
                 val response: RegisterResponse = authServiceClient.Login().execute(request)
+                kVault.set("token", response.token)
+
                 _state.value = _state.value.copy(isSuccessful = true)
             } catch (e: Exception) {
                 val message = if (e is GrpcException) {
