@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.jetbrains.kmpapp.screens.detail.DetailScreen
 import com.jetbrains.kmpapp.screens.list.ListScreen
+import com.jetbrains.kmpapp.screens.register.RegisterScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -20,6 +21,9 @@ object ListDestination
 
 @Serializable
 data class DetailDestination(val objectId: Int)
+
+@Serializable
+object RegisterDestination
 
 @Composable
 fun App() {
@@ -30,14 +34,27 @@ fun App() {
             val navController: NavHostController = rememberNavController()
             NavHost(navController = navController, startDestination = ListDestination) {
                 composable<ListDestination> {
-                    ListScreen(navigateToDetails = { objectId ->
-                        navController.navigate(DetailDestination(objectId))
-                    })
+                    ListScreen(
+                        navigateToDetails = { objectId ->
+                            navController.navigate(DetailDestination(objectId))
+                        },
+                        navigateToRegister = {
+                            navController.navigate(RegisterDestination)
+                        }
+                    )
                 }
                 composable<DetailDestination> { backStackEntry ->
                     DetailScreen(
                         objectId = backStackEntry.toRoute<DetailDestination>().objectId,
                         navigateBack = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
+
+                composable<RegisterDestination> {
+                    RegisterScreen(
+                        navigateToList = {
                             navController.popBackStack()
                         }
                     )

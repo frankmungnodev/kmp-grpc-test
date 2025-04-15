@@ -16,8 +16,12 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -32,7 +36,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ListScreen(
-    navigateToDetails: (objectId: Int) -> Unit
+    navigateToDetails: (objectId: Int) -> Unit,
+    navigateToRegister: () -> Unit,
 ) {
     val viewModel = koinViewModel<ListViewModel>()
     val objects by viewModel.objects.collectAsStateWithLifecycle()
@@ -42,6 +47,7 @@ fun ListScreen(
             ObjectGrid(
                 objects = objects,
                 onObjectClick = navigateToDetails,
+                navigateToRegister = navigateToRegister
             )
         } else {
             EmptyScreenContent(Modifier.fillMaxSize())
@@ -49,22 +55,39 @@ fun ListScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ObjectGrid(
     objects: List<MuseumObject>,
     onObjectClick: (Int) -> Unit,
+    navigateToRegister: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(180.dp),
-        modifier = modifier.fillMaxSize(),
-        contentPadding = WindowInsets.safeDrawing.asPaddingValues(),
-    ) {
-        items(objects, key = { it.objectID }) { obj ->
-            ObjectFrame(
-                obj = obj,
-                onClick = { onObjectClick(obj.objectID) },
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Art Gallery")
+                },
+                actions = {
+                    Button(onClick = navigateToRegister) {
+                        Text("Register")
+                    }
+                },
             )
+        }
+    ) { paddingValues ->
+        LazyVerticalGrid(
+            modifier = Modifier.padding(paddingValues),
+            columns = GridCells.Adaptive(180.dp),
+        ) {
+            items(objects, key = { it.objectID }) { obj ->
+                ObjectFrame(
+                    obj = obj,
+                    onClick = { onObjectClick(obj.objectID) },
+                )
+            }
         }
     }
 }

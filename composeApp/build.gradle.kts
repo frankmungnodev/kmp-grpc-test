@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.wire)
 }
 
 kotlin {
@@ -54,7 +55,21 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.navigation.compose)
+            implementation(libs.wire.runtime)
+            implementation(libs.wire.grpc.client)
         }
+    }
+}
+
+wire {
+    kotlin {
+        javaInterop = false
+        rpcRole = "client"
+        rpcCallStyle = "suspending"
+    }
+
+    sourcePath {
+        srcDir("src/proto")
     }
 }
 
