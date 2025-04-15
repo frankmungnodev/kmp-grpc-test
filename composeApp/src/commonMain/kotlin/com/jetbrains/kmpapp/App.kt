@@ -54,9 +54,10 @@ fun App() {
 
                 composable<RegisterDestination> {
                     RegisterScreen(
-                        navigateToList = {
+                        onGoBack = {
                             navController.popBackStack()
-                        }
+                        },
+                        navigateToLogin = {}
                     )
                 }
             }

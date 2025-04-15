@@ -6,6 +6,7 @@ import RegisterResponse
 import User
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.squareup.wire.GrpcException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ class RegisterViewModel(
     private val authServiceClient: AuthServiceClient
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<RegisterUiState>(RegisterUiState())
+    private val _state = MutableStateFlow(RegisterUiState())
     val state: StateFlow<RegisterUiState> = _state
 
     fun onNameChanged(newName: String) {
@@ -29,7 +30,7 @@ class RegisterViewModel(
         _state.value = _state.value.copy(password = newPassword)
     }
 
-    fun register(onSuccess: () -> Unit, onError: (String) -> Unit) {
+    fun register() {
         viewModelScope.launch {
             try {
                 val request = RegisterRequest(
@@ -41,9 +42,18 @@ class RegisterViewModel(
 
                     .execute(request)
                 _state.value = _state.value.copy(token = response.token, user = response.user)
-                onSuccess()
+                _state.value = _state.value.copy(isSuccessful = true)
             } catch (e: Exception) {
-                onError(e.message ?: "Registration failed")
+                val message = if (e is GrpcException) {
+                    if (e.grpcStatus.name == "ALREADY_EXISTS") {
+                        "User already exists"
+                    } else {
+                        e.grpcMessage ?: "Registration failed"
+                    }
+                } else {
+                    e.message ?: "Registration failed"
+                }
+                _state.value = _state.value.copy(isSuccessful = false, error = message)
             }
         }
     }
@@ -55,4 +65,7 @@ data class RegisterUiState(
     val password: String = "",
     val token: String? = null,
     val user: User? = null,
+    val error: String? = null,
+    val isLoading: Boolean = false,
+    val isSuccessful: Boolean = false
 )
