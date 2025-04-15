@@ -38,10 +38,7 @@ class RegisterViewModel(
                     email = _state.value.email,
                     password = _state.value.password,
                 )
-                val response: RegisterResponse = authServiceClient.Register()
-
-                    .execute(request)
-                _state.value = _state.value.copy(token = response.token, user = response.user)
+                val response: RegisterResponse = authServiceClient.Register().execute(request)
                 _state.value = _state.value.copy(isSuccessful = true)
             } catch (e: Exception) {
                 val message = if (e is GrpcException) {
@@ -63,8 +60,6 @@ data class RegisterUiState(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-    val token: String? = null,
-    val user: User? = null,
     val error: String? = null,
     val isLoading: Boolean = false,
     val isSuccessful: Boolean = false
