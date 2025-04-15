@@ -10,6 +10,7 @@ import com.jetbrains.kmpapp.data.MuseumStorage
 import com.jetbrains.kmpapp.grpcClient
 import com.jetbrains.kmpapp.screens.detail.DetailViewModel
 import com.jetbrains.kmpapp.screens.list.ListViewModel
+import com.jetbrains.kmpapp.screens.login.LoginViewModel
 import com.jetbrains.kmpapp.screens.register.RegisterViewModel
 import com.squareup.wire.GrpcClient
 import io.ktor.client.HttpClient
@@ -48,6 +49,7 @@ val viewModelModule = module {
     factoryOf(::ListViewModel)
     factoryOf(::DetailViewModel)
     factoryOf(::RegisterViewModel)
+    factoryOf(::LoginViewModel)
 }
 
 fun initKoin() {

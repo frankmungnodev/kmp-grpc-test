@@ -7,12 +7,14 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.jetbrains.kmpapp.screens.detail.DetailScreen
 import com.jetbrains.kmpapp.screens.list.ListScreen
+import com.jetbrains.kmpapp.screens.login.LoginScreen
 import com.jetbrains.kmpapp.screens.register.RegisterScreen
 import kotlinx.serialization.Serializable
 
@@ -24,6 +26,9 @@ data class DetailDestination(val objectId: Int)
 
 @Serializable
 object RegisterDestination
+
+@Serializable
+object LoginDestination
 
 @Composable
 fun App() {
@@ -57,7 +62,30 @@ fun App() {
                         onGoBack = {
                             navController.popBackStack()
                         },
-                        navigateToLogin = {}
+                        navigateToLogin = {
+                            navController.navigate(LoginDestination) {
+                                popUpTo(RegisterDestination) {
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
+                        }
+                    )
+                }
+
+                composable<LoginDestination> {
+                    LoginScreen(
+                        onGoBack = {
+                            navController.popBackStack()
+                        },
+                        navigateToRegister = {
+                            navController.navigate(RegisterDestination) {
+                                popUpTo(LoginDestination) {
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
+                        }
                     )
                 }
             }
