@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.jetbrains.kmpapp.screens.chatlist.ChatListScreen
 import com.jetbrains.kmpapp.screens.detail.DetailScreen
 import com.jetbrains.kmpapp.screens.list.ListScreen
 import com.jetbrains.kmpapp.screens.login.LoginScreen
@@ -23,6 +24,9 @@ object ListDestination
 
 @Serializable
 data class DetailDestination(val objectId: Int)
+
+@Serializable
+object ChatListDestination
 
 @Serializable
 object RegisterDestination
@@ -37,22 +41,11 @@ fun App() {
     ) {
         Surface {
             val navController: NavHostController = rememberNavController()
-            NavHost(navController = navController, startDestination = ListDestination) {
-                composable<ListDestination> {
-                    ListScreen(
-                        navigateToDetails = { objectId ->
-                            navController.navigate(DetailDestination(objectId))
-                        },
+            NavHost(navController = navController, startDestination = ChatListDestination) {
+                composable<ChatListDestination> {
+                    ChatListScreen(
                         navigateToRegister = {
                             navController.navigate(RegisterDestination)
-                        }
-                    )
-                }
-                composable<DetailDestination> { backStackEntry ->
-                    DetailScreen(
-                        objectId = backStackEntry.toRoute<DetailDestination>().objectId,
-                        navigateBack = {
-                            navController.popBackStack()
                         }
                     )
                 }

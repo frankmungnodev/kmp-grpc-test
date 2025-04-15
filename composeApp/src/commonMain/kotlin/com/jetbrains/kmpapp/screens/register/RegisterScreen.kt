@@ -71,7 +71,7 @@ fun RegisterScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreenContent(
+private fun RegisterScreenContent(
     state: RegisterUiState,
     onNameChanged: (String) -> Unit,
     onEmailChanged: (String) -> Unit,

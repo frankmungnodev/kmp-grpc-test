@@ -70,7 +70,7 @@ fun LoginScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreenContent(
+private fun LoginScreenContent(
     state: LoginUiState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
