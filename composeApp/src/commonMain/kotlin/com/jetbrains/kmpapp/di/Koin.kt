@@ -1,20 +1,16 @@
 package com.jetbrains.kmpapp.di
 
-import AuthServiceClient
-import com.jetbrains.kmpapp.authServiceClient
 import com.jetbrains.kmpapp.data.InMemoryMuseumStorage
 import com.jetbrains.kmpapp.data.KtorMuseumApi
 import com.jetbrains.kmpapp.data.MuseumApi
 import com.jetbrains.kmpapp.data.MuseumRepository
 import com.jetbrains.kmpapp.data.MuseumStorage
-import com.jetbrains.kmpapp.grpcClient
 import com.jetbrains.kmpapp.platformModule
 import com.jetbrains.kmpapp.screens.chatlist.ChatListViewModel
 import com.jetbrains.kmpapp.screens.detail.DetailViewModel
 import com.jetbrains.kmpapp.screens.list.ListViewModel
 import com.jetbrains.kmpapp.screens.login.LoginViewModel
 import com.jetbrains.kmpapp.screens.register.RegisterViewModel
-import com.squareup.wire.GrpcClient
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.ContentType
@@ -42,9 +38,6 @@ val dataModule = module {
             initialize()
         }
     }
-
-    single<GrpcClient> { grpcClient() }
-    single<AuthServiceClient> { authServiceClient }
 }
 
 val viewModelModule = module {
