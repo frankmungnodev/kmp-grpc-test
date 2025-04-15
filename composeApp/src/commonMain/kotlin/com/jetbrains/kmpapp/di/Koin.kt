@@ -8,6 +8,7 @@ import com.jetbrains.kmpapp.data.MuseumApi
 import com.jetbrains.kmpapp.data.MuseumRepository
 import com.jetbrains.kmpapp.data.MuseumStorage
 import com.jetbrains.kmpapp.grpcClient
+import com.jetbrains.kmpapp.platformModule
 import com.jetbrains.kmpapp.screens.chatlist.ChatListViewModel
 import com.jetbrains.kmpapp.screens.detail.DetailViewModel
 import com.jetbrains.kmpapp.screens.list.ListViewModel
@@ -57,6 +58,7 @@ val viewModelModule = module {
 fun initKoin() {
     startKoin {
         modules(
+            platformModule,
             dataModule,
             viewModelModule,
         )

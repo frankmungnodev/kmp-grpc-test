@@ -6,13 +6,15 @@ import RegisterResponse
 import User
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.liftric.kvault.KVault
 import com.squareup.wire.GrpcException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val authServiceClient: AuthServiceClient
+    private val authServiceClient: AuthServiceClient,
+    private val kVault: KVault
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(RegisterUiState())

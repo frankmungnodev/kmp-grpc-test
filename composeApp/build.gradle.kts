@@ -55,8 +55,11 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.navigation.compose)
+
             implementation(libs.wire.runtime)
             implementation(libs.wire.grpc.client)
+
+            implementation(libs.kvault)
         }
     }
 }
