@@ -11,12 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jetbrains.kmpapp.screens.chatlist.ChatListScreen
-import com.jetbrains.kmpapp.screens.chatlist.ChatListViewModel
 import com.jetbrains.kmpapp.screens.login.LoginScreen
 import com.jetbrains.kmpapp.screens.register.RegisterScreen
 import kotlinx.serialization.Serializable
-import org.koin.compose.getKoin
-import org.koin.compose.viewmodel.koinViewModel
 
 @Serializable
 object ListDestination
@@ -66,10 +63,8 @@ fun App() {
                 }
 
                 composable<LoginDestination> {
-                    val homeViewModel = koinViewModel<ChatListViewModel>()
                     LoginScreen(
                         onSuccess = {
-                            homeViewModel.getUser()
                             navController.popBackStack()
                         },
                         navigateToRegister = {

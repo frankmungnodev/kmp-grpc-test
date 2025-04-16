@@ -3,9 +3,9 @@ package com.jetbrains.kmpapp.screens.register
 import AuthServiceClient
 import RegisterRequest
 import RegisterResponse
-import User
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jetbrains.kmpapp.sharedvm.UserViewModel
 import com.liftric.kvault.KVault
 import com.squareup.wire.GrpcException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,8 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel(
     private val authServiceClient: AuthServiceClient,
-    private val kVault: KVault
+    private val kVault: KVault,
+    private val userViewModel: UserViewModel
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(RegisterUiState())
@@ -42,6 +43,7 @@ class RegisterViewModel(
                 )
                 val response: RegisterResponse = authServiceClient.Register().execute(request)
                 kVault.set("token", response.token)
+                userViewModel.getMe()
 
                 _state.value = _state.value.copy(isSuccessful = true)
             } catch (e: Exception) {

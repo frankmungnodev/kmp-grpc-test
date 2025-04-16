@@ -11,6 +11,7 @@ import com.jetbrains.kmpapp.screens.detail.DetailViewModel
 import com.jetbrains.kmpapp.screens.list.ListViewModel
 import com.jetbrains.kmpapp.screens.login.LoginViewModel
 import com.jetbrains.kmpapp.screens.register.RegisterViewModel
+import com.jetbrains.kmpapp.sharedvm.UserViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.ContentType
@@ -18,6 +19,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -41,6 +43,8 @@ val dataModule = module {
 }
 
 val viewModelModule = module {
+    singleOf(::UserViewModel)
+
     factoryOf(::ListViewModel)
     factoryOf(::DetailViewModel)
     factoryOf(::ChatListViewModel)
