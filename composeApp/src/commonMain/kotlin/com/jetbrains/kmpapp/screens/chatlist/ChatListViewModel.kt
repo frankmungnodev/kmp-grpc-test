@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 data class ChatListUiState(
-    val user: User? = null
+    val user: User? = null,
+    val error: Exception? = null,
 )
 
 class ChatListViewModel (private val authServiceClient: AuthServiceClient) : ViewModel() {
@@ -18,17 +19,13 @@ class ChatListViewModel (private val authServiceClient: AuthServiceClient) : Vie
     private val _state = MutableStateFlow(ChatListUiState())
     val state: StateFlow<ChatListUiState> = _state
 
-    init {
-        getUser()
-    }
-
     fun getUser() {
         viewModelScope.launch {
             try {
                 val response = authServiceClient.GetMe().execute(GetMeRequest())
-                println("getme response => $response")
+                _state.value = _state.value.copy(user = response, error = null)
             } catch (e: Exception) {
-                println("getme error => $e")
+                _state.value = _state.value.copy(error = e)
             }
         }
     }

@@ -21,10 +21,11 @@ actual val platformModule: Module
         single<KVault> { KVault(get()) }
 
         single<GrpcClient> {
-            val token = get<KVault>().string("token")
             val httpClient = OkHttpClient.Builder()
                 .protocols(listOf(Protocol.H2_PRIOR_KNOWLEDGE))
                 .addInterceptor { chain ->
+                    val token = get<KVault>().string("token")
+
                     val request = chain.request().newBuilder()
                         .headers(GrpcHeaders.headersOf("Authorization", token ?: ""))
                         .tag(GetUserRequest::class)

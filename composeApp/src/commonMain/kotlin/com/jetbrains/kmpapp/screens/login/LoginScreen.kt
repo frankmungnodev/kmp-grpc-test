@@ -44,7 +44,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    onGoBack: () -> Unit,
+    onSuccess: () -> Unit,
     navigateToRegister: () -> Unit
 ) {
     val viewModel = koinViewModel<LoginViewModel>()
@@ -53,7 +53,7 @@ fun LoginScreen(
 
     LaunchedEffect(state.isSuccessful) {
         if (state.isSuccessful) {
-            onGoBack()
+            onSuccess()
         }
     }
 
@@ -62,7 +62,7 @@ fun LoginScreen(
         onEmailChanged = viewModel::onEmailChanged,
         onPasswordChanged = viewModel::onPasswordChanged,
         onLoginClicked = viewModel::login,
-        onGoback = onGoBack,
+        onGoback = onSuccess,
         onRegisterClicked = navigateToRegister,
         focusManager = focusManager
     )

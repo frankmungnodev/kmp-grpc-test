@@ -7,17 +7,16 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.jetbrains.kmpapp.screens.chatlist.ChatListScreen
-import com.jetbrains.kmpapp.screens.detail.DetailScreen
-import com.jetbrains.kmpapp.screens.list.ListScreen
+import com.jetbrains.kmpapp.screens.chatlist.ChatListViewModel
 import com.jetbrains.kmpapp.screens.login.LoginScreen
 import com.jetbrains.kmpapp.screens.register.RegisterScreen
 import kotlinx.serialization.Serializable
+import org.koin.compose.getKoin
+import org.koin.compose.viewmodel.koinViewModel
 
 @Serializable
 object ListDestination
@@ -67,8 +66,10 @@ fun App() {
                 }
 
                 composable<LoginDestination> {
+                    val homeViewModel = koinViewModel<ChatListViewModel>()
                     LoginScreen(
-                        onGoBack = {
+                        onSuccess = {
+                            homeViewModel.getUser()
                             navController.popBackStack()
                         },
                         navigateToRegister = {
