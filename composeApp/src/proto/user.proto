@@ -24,4 +24,5 @@ message User {
     google.protobuf.Timestamp created_at = 5;
     google.protobuf.Timestamp updated_at = 6;
     optional google.protobuf.Timestamp deleted_at = 7;
+    optional string avatar = 8;
 }
