@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jetbrains.kmpapp.screens.chatlist.ChatListScreen
 import com.jetbrains.kmpapp.screens.login.LoginScreen
+import com.jetbrains.kmpapp.screens.profile.ProfileScreen
 import com.jetbrains.kmpapp.screens.register.RegisterScreen
 import kotlinx.serialization.Serializable
 
@@ -30,6 +31,9 @@ object RegisterDestination
 @Serializable
 object LoginDestination
 
+@Serializable
+object ProfileDestination
+
 @Composable
 fun App() {
     MaterialTheme(
@@ -42,6 +46,20 @@ fun App() {
                     ChatListScreen(
                         navigateToRegister = {
                             navController.navigate(RegisterDestination)
+                        },
+                        navigateToProfile = {
+                            navController.navigate(ProfileDestination)
+                        }
+                    )
+                }
+
+                composable<ProfileDestination> {
+                    ProfileScreen(
+                        onLogout = {
+                            navController.popBackStack()
+                        },
+                        onGoBack = {
+                            navController.popBackStack()
                         }
                     )
                 }

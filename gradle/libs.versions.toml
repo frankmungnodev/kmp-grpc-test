@@ -10,6 +10,7 @@ ktor = "3.1.2"
 navigationCompose = "2.8.0-alpha13"
 wire = "5.3.1"
 kvault = "1.12.0"
+kotlinxDateTime = "0.6.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -28,6 +29,7 @@ navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-co
 wire-runtime = { module = "com.squareup.wire:wire-runtime", version.ref = "wire" }
 wire-grpc-client = { module = "com.squareup.wire:wire-grpc-client", version.ref = "wire" }
 kvault = { module = "com.liftric:kvault", version.ref = "kvault" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

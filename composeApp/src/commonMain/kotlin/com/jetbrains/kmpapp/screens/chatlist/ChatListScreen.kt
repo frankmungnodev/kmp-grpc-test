@@ -1,6 +1,7 @@
 package com.jetbrains.kmpapp.screens.chatlist
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -35,6 +35,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ChatListScreen(
     navigateToRegister: () -> Unit,
+    navigateToProfile: () -> Unit,
 ) {
     val userViewModel = koinViewModel<UserViewModel>()
     val userState by userViewModel.state.collectAsState()
@@ -42,6 +43,7 @@ fun ChatListScreen(
     ChatListView(
         userState = userState,
         navigateToRegister = navigateToRegister,
+        navigateToProfile = navigateToProfile
     )
 }
 
@@ -50,6 +52,7 @@ fun ChatListScreen(
 private fun ChatListView(
     userState: UserState,
     navigateToRegister: () -> Unit,
+    navigateToProfile: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -64,7 +67,8 @@ private fun ChatListView(
                                 .padding(end = 16.dp)
                                 .size(36.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.primary),
+                                .background(MaterialTheme.colorScheme.primary)
+                                .clickable(true, onClick = navigateToProfile),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -102,7 +106,7 @@ private fun ChatListView(
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            "Create account to continue",
+                            "Register or Login to continue",
                             textAlign = TextAlign.Center
                         )
 
@@ -110,21 +114,6 @@ private fun ChatListView(
 
                         Button(onClick = navigateToRegister) {
                             Text("Register")
-                        }
-                    }
-                }
-
-                else -> {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        val userViewModel = koinViewModel<UserViewModel>()
-                        TextButton(onClick = {
-                            userViewModel.logout()
-                        }) {
-                            Text("Logout")
                         }
                     }
                 }
