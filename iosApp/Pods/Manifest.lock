@@ -1,0 +1,23 @@
+PODS:
+  - composeApp (2.0)
+  - Wire (5.3.1)
+
+DEPENDENCIES:
+  - composeApp (from `../composeApp`)
+  - Wire
+
+SPEC REPOS:
+  trunk:
+    - Wire
+
+EXTERNAL SOURCES:
+  composeApp:
+    :path: "../composeApp"
+
+SPEC CHECKSUMS:
+  composeApp: 78530dd888861a824b4241ac263790e0b4084ce7
+  Wire: 6f78a0ce7f2e2b8dfc9b6dbb252cbc4707ab5ef7
+
+PODFILE CHECKSUM: e045cd367172099b0f0bfece056604f34d6affcc
+
+COCOAPODS: 1.16.2

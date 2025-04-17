@@ -1,0 +1,15 @@
+UserProto:
+  roots:
+    - User
+
+AuthProto:
+  dependencies:
+    - UserProto
+  roots:
+    - RegisterRequest
+    - RegisterResponse
+    - LoginRequest
+    - GetMeRequest
+    - AuthService
+  prunes:
+    - User

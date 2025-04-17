@@ -10,6 +10,7 @@ ktor = "3.1.2"
 navigationCompose = "2.8.0-alpha13"
 wire = "5.3.1"
 kvault = "1.12.0"
+kotlinxCoroutine = "1.10.2"
 kotlinxDateTime = "0.6.2"
 
 [libraries]
@@ -29,6 +30,7 @@ navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-co
 wire-runtime = { module = "com.squareup.wire:wire-runtime", version.ref = "wire" }
 wire-grpc-client = { module = "com.squareup.wire:wire-grpc-client", version.ref = "wire" }
 kvault = { module = "com.liftric:kvault", version.ref = "kvault" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutine" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 
 [plugins]
@@ -36,5 +38,6 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 wire = { id = "com.squareup.wire", version.ref = "wire" }

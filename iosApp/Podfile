@@ -1,0 +1,8 @@
+platform :ios, '18.0'
+
+target 'iosApp' do
+    use_frameworks!
+
+    pod 'composeApp', :path => '../composeApp'
+    pod 'Wire'
+end
