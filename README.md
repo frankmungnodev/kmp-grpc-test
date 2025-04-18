@@ -3,6 +3,8 @@
 ### This project use Wire
 [Wire](https://github.com/square/wire)
 
+Need to setup ios client side.
+
 ### Generate Kotlin Code From Proto
 ```bash
 ./gradlew generateCommonMainProtos
