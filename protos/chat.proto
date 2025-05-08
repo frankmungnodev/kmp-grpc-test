@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.proto.chat";
+option java_outer_classname = "ChatProto";
+
+package chat;
+
+service ChatService {
+  // Bidirectional streaming for real-time chat
+  rpc ChatStream (stream ChatMessage) returns (stream ChatMessage) {}
+
+  // Simple RPC to send a message (can be used for server messages or testing)
+  rpc SendMessage (ChatMessage) returns (MessageAck) {}
+}
+
+message ChatMessage {
+  string user_id = 1;  // User ID or "SERVER" for system messages
+  string content = 2;  // The actual message content
+  string timestamp = 3;  // Timestamp as string (milliseconds since epoch)
+}
+
+message MessageAck {
+  bool received = 1;  // Whether the message was received successfully
+  string server_message = 2;  // Additional context from the server
+  string timestamp = 3;  // Timestamp of acknowledgment
+}

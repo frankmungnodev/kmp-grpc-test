@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.kmpGrpc)
 }
 
 kotlin {
@@ -119,4 +120,20 @@ android {
 
 dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
+}
+
+kmpGrpc {
+    // declare the targets you need.
+    common() // required
+    jvm()
+    android()
+    js()
+    ios()
+
+    // Optional: if the protobuf well known types should be included
+    // https://protobuf.dev/reference/protobuf/google.protobuf/
+    includeWellKnownTypes = true
+
+    // Specify the folders where your proto files are located, you can list multiple.
+    protoSourceFolders = project.files("../protos")
 }

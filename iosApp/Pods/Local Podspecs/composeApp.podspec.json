@@ -13,6 +13,10 @@
   "platforms": {
     "ios": "16.0"
   },
+  "dependencies": {
+    "Protobuf": [],
+    "gRPC-ProtoRPC": []
+  },
   "xcconfig": {
     "ENABLE_USER_SCRIPT_SANDBOXING": "NO"
   },

@@ -176,10 +176,24 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${PODS_ROOT}/../../composeApp/build/cocoapods/framework/composeApp.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/abseil/absl.framework"
+  install_framework "${PODS_ROOT}/../../composeApp/build/cocoapods/framework/ComposeApp.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${PODS_ROOT}/../../composeApp/build/cocoapods/framework/composeApp.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/abseil/absl.framework"
+  install_framework "${PODS_ROOT}/../../composeApp/build/cocoapods/framework/ComposeApp.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
